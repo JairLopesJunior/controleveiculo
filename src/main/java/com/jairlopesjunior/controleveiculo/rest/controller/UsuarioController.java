@@ -1,6 +1,7 @@
 package com.jairlopesjunior.controleveiculo.rest.controller;
 
 import com.jairlopesjunior.controleveiculo.rest.dto.UsuarioDTO;
+import com.jairlopesjunior.controleveiculo.rest.dto.VeiculosDTO;
 import com.jairlopesjunior.controleveiculo.service.UsuarioService;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +23,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public UsuarioDTO getUserById( @PathVariable("id") Integer id ){
+    public VeiculosDTO getUserById(@PathVariable("id") Integer id ){
         return usuarioService.getUserById(id);
     }
 }

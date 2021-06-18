@@ -2,7 +2,7 @@ package com.jairlopesjunior.controleveiculo.rest.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.persistence.Column;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -14,20 +14,19 @@ public class VeiculoDTO {
 
     @Size(message = "A marca do veiculo não pode ultrapassar {max} caracteres.", max = 80)
     @ApiModelProperty(name = "marca", value = "Marca do Veiculo", example = "Fiat", position = 1)
-    @Column(name = "marca", nullable = false, length = 80)
+    @NotEmpty(message = "Campo marca é obrigatório.")
     private String marca;
 
     @Size(message = "O modelo do veiculo não pode ultrapassar {max} caracteres.", max = 80)
     @ApiModelProperty(name = "modelo", value = "Modelo do Veiculo", example = "Uno", position = 2)
-    @Column(name = "modelo", nullable = false, length = 80)
+    @NotEmpty(message = "Campo modelo é obrigatório.")
     private String modelo;
 
     @ApiModelProperty(name = "ano", value = "Ano do Veiculo", example = "", position = 3)
-    @Column(name = "ano", nullable = false)
+    @NotEmpty(message = "Campo ano é obrigatório.")
     private LocalDate ano;
 
     @ApiModelProperty(name = "valor", value = "Valor do Veiculo", example = "50.00", position = 4)
-    @Column(name = "valor", precision = 20, scale = 2)
     private BigDecimal valor;
 
     public Integer getId() {

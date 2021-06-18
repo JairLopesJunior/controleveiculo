@@ -1,8 +1,8 @@
 package com.jairlopesjunior.controleveiculo.rest.controller;
 
 import com.jairlopesjunior.controleveiculo.rest.dto.VeiculoDTO;
+import com.jairlopesjunior.controleveiculo.rest.dto.VeiculosDTO;
 import com.jairlopesjunior.controleveiculo.service.VeiculoService;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +21,7 @@ public class VeiculoController {
     }
 
     @PostMapping
-    public VeiculoDTO save(@Valid @RequestBody VeiculoDTO veiculoDTO ){
+    public VeiculoDTO save( @Valid @RequestBody VeiculoDTO veiculoDTO ){
         return veiculoService.save(veiculoDTO);
     }
 }

@@ -1,14 +1,17 @@
 package com.jairlopesjunior.controleveiculo.rest.dto;
 
+import com.jairlopesjunior.controleveiculo.domain.entities.Veiculo;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.br.CPF;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.List;
 
-public class UsuarioDTO {
+public class VeiculosDTO {
 
     @ApiModelProperty(name = "id", value = "Id do Usuario", example = "null", position = 0)
     private Integer id;
@@ -27,6 +30,9 @@ public class UsuarioDTO {
     private String cpf;
 
     private LocalDate dataNascimento;
+
+    @Valid
+    private List<Veiculo> veiculos;
 
     public Integer getId() {
         return id;
@@ -66,5 +72,13 @@ public class UsuarioDTO {
 
     public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
+    }
+
+    public List<Veiculo> getVeiculos() {
+        return veiculos;
+    }
+
+    public void setVeiculos(List<Veiculo> veiculos) {
+        this.veiculos = veiculos;
     }
 }

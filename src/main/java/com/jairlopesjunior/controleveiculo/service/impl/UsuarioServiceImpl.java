@@ -3,6 +3,7 @@ package com.jairlopesjunior.controleveiculo.service.impl;
 import com.jairlopesjunior.controleveiculo.domain.entities.Usuario;
 import com.jairlopesjunior.controleveiculo.domain.repositories.UsuarioRepository;
 import com.jairlopesjunior.controleveiculo.rest.dto.UsuarioDTO;
+import com.jairlopesjunior.controleveiculo.rest.dto.VeiculosDTO;
 import com.jairlopesjunior.controleveiculo.service.UsuarioService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -26,12 +27,11 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public UsuarioDTO getUserById( Integer id ) {
+    public VeiculosDTO getUserById(Integer id ) {
         return usuarioRepository.findById(id)
                 .map( usuarioEncontrado -> {
-                    UsuarioDTO usuarioDTO = converterEntityParaDto(usuarioEncontrado);
-                    //usuarioDTO.setVeiculos(usuarioEncontrado.getVeiculos());
-                    return usuarioDTO;
+                    VeiculosDTO veiculosDTO = converterVeiculosParaDto(usuarioEncontrado);
+                    return veiculosDTO;
                 })
                 .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado." ));
     }
@@ -52,6 +52,17 @@ public class UsuarioServiceImpl implements UsuarioService {
         dto.setCpf(usuario.getCpf());
         dto.setEmail(usuario.getEmail());
         dto.setDataNascimento(usuario.getDataNascimento());
+        return dto;
+    }
+
+    private VeiculosDTO converterVeiculosParaDto( Usuario usuario ){
+        VeiculosDTO dto = new VeiculosDTO();
+        dto.setId(usuario.getId());
+        dto.setNome(usuario.getNome());
+        dto.setCpf(usuario.getCpf());
+        dto.setEmail(usuario.getEmail());
+        dto.setDataNascimento(usuario.getDataNascimento());
+        dto.setVeiculos(usuario.getVeiculos());
         return dto;
     }
 }
