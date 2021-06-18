@@ -1,40 +1,34 @@
-package com.jairlopesjunior.controleveiculo.domain.entities;
+package com.jairlopesjunior.controleveiculo.rest.dto;
 
-import javax.persistence.*;
+import com.jairlopesjunior.controleveiculo.domain.entities.Veiculo;
+import org.hibernate.validator.constraints.br.CPF;
+
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
-@Entity
-@Table(name = "usuario")
-public class Usuario {
+public class UsuarioDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
     private Integer id;
 
-    @Column(name = "nome", length = 80)
+    @NotNull(message = "Campo nome é obrigatório.")
     private String nome;
 
-    @Column(name = "email", nullable = false, unique = true)
+    @Email(message = "Informe um Email valido.")
     private String email;
 
-    @Column(name = "cpf", nullable = false, unique = true, length = 11)
+    @CPF(message = "Informe um CPF valido.")
     private String cpf;
 
-    @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
 
-    @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
     private List<Veiculo> veiculos;
-
-    public List<Veiculo> getVeiculos() {
-        return veiculos;
-    }
-
-    public void setVeiculos(List<Veiculo> veiculos) {
-        this.veiculos = veiculos;
-    }
 
     public Integer getId() {
         return id;
@@ -74,5 +68,13 @@ public class Usuario {
 
     public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
+    }
+
+    public List<Veiculo> getVeiculos() {
+        return veiculos;
+    }
+
+    public void setVeiculos(List<Veiculo> veiculos) {
+        this.veiculos = veiculos;
     }
 }
