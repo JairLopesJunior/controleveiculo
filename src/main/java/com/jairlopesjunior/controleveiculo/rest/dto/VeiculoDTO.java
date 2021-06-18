@@ -1,41 +1,34 @@
-package com.jairlopesjunior.controleveiculo.domain.entities;
+package com.jairlopesjunior.controleveiculo.rest.dto;
 
-import javax.persistence.*;
+import io.swagger.annotations.ApiModelProperty;
+
+import javax.persistence.Column;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "veiculo")
-public class Veiculo {
+public class VeiculoDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @ApiModelProperty(name = "id", value = "Id do Veiculo", example = "null", position = 0)
     private Integer id;
 
+    @Size(message = "A marca do veiculo não pode ultrapassar {max} caracteres.", max = 80)
+    @ApiModelProperty(name = "marca", value = "Marca do Veiculo", example = "Fiat", position = 1)
     @Column(name = "marca", nullable = false, length = 80)
     private String marca;
 
+    @Size(message = "O modelo do veiculo não pode ultrapassar {max} caracteres.", max = 80)
+    @ApiModelProperty(name = "modelo", value = "Modelo do Veiculo", example = "Uno", position = 2)
     @Column(name = "modelo", nullable = false, length = 80)
     private String modelo;
 
+    @ApiModelProperty(name = "ano", value = "Ano do Veiculo", example = "", position = 3)
     @Column(name = "ano", nullable = false)
     private LocalDate ano;
 
+    @ApiModelProperty(name = "valor", value = "Valor do Veiculo", example = "50.00", position = 4)
     @Column(name = "valor", precision = 20, scale = 2)
     private BigDecimal valor;
-
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
 
     public Integer getId() {
         return id;

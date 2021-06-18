@@ -5,8 +5,10 @@ import com.jairlopesjunior.controleveiculo.domain.repositories.UsuarioRepository
 import com.jairlopesjunior.controleveiculo.rest.dto.UsuarioDTO;
 import com.jairlopesjunior.controleveiculo.service.UsuarioService;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+@Service
 public class UsuarioServiceImpl implements UsuarioService {
 
     private UsuarioRepository usuarioRepository;
@@ -18,7 +20,9 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public UsuarioDTO save( UsuarioDTO usuarioDTO ){
         Usuario usuarioConvertido = converterDtoParaEntity(usuarioDTO);
-        usuarioRepository.save(usuarioConvertido)
+        Usuario usuarioSalvo = usuarioRepository.save(usuarioConvertido);
+        UsuarioDTO usuarioDesconvertido = converterEntityParaDto(usuarioSalvo);
+        return usuarioDesconvertido;
     }
 
     @Override
@@ -26,6 +30,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         return usuarioRepository.findById(id)
                 .map( usuarioEncontrado -> {
                     UsuarioDTO usuarioDTO = converterEntityParaDto(usuarioEncontrado);
+                    //usuarioDTO.setVeiculos(usuarioEncontrado.getVeiculos());
                     return usuarioDTO;
                 })
                 .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado." ));
@@ -42,11 +47,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     private UsuarioDTO converterEntityParaDto( Usuario usuario ){
         UsuarioDTO dto = new UsuarioDTO();
+        dto.setId(usuario.getId());
         dto.setNome(usuario.getNome());
         dto.setCpf(usuario.getCpf());
         dto.setEmail(usuario.getEmail());
         dto.setDataNascimento(usuario.getDataNascimento());
-        dto.setVeiculos(usuario.getVeiculos());
         return dto;
     }
 }
