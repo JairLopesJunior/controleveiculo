@@ -1,15 +1,17 @@
-package com.jairlopesjunior.controleveiculo.rest.dto;
+package com.jairlopesjunior.controleveiculo.rest.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class VeiculoDTO {
+public class VeiculoResponseDTO {
 
-    @ApiModelProperty(name = "id", value = "Id do Usuario", example = "1", position = 0)
+    @ApiModelProperty(name = "id", value = "Id do Veiculo", example = "1", position = 0)
     private Integer id;
 
     @Size(message = "A marca do veiculo não pode ultrapassar {max} caracteres.", max = 80)
@@ -70,4 +72,3 @@ public class VeiculoDTO {
         this.valor = valor;
     }
 }
-

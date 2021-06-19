@@ -1,7 +1,8 @@
-package com.jairlopesjunior.controleveiculo.rest.dto;
+package com.jairlopesjunior.controleveiculo.rest.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.jairlopesjunior.controleveiculo.domain.entities.Veiculo;
+import com.jairlopesjunior.controleveiculo.rest.dto.request.VeiculoRequestDTO;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -12,10 +13,10 @@ import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.List;
 
-public class UsuarioVeiculosDTO {
+public class UsuarioVeiculosResponseDTO {
 
     @ApiModelProperty(name = "id", value = "Id do Usuario", example = "1", position = 0)
-    private Integer id;
+    private Integer idUsuario;
 
     @Size(message = "O nome do usuário não pode ultrapassar {max} caracteres.", max = 80)
     @ApiModelProperty(name = "nome", value = "Nome do Usuario", example = "James Gosling", position = 1)
@@ -37,14 +38,14 @@ public class UsuarioVeiculosDTO {
 
     @ApiModelProperty(dataType="List", value = "veiculos", position = 5)
     @Valid
-    private List<VeiculoDTO> veiculos;
+    private List<VeiculoRequestDTO> veiculos;
 
-    public Integer getId() {
-        return id;
+    public Integer getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getNome() {
@@ -79,11 +80,11 @@ public class UsuarioVeiculosDTO {
         this.dataNascimento = dataNascimento;
     }
 
-    public List<VeiculoDTO> getVeiculos() {
+    public List<VeiculoRequestDTO> getVeiculos() {
         return veiculos;
     }
 
-    public void setVeiculos(List<VeiculoDTO> veiculos) {
+    public void setVeiculos(List<VeiculoRequestDTO> veiculos) {
         this.veiculos = veiculos;
     }
 }

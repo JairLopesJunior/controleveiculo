@@ -9,7 +9,8 @@ import java.util.List;
 public class Usuario {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "usuario_sequence")
+    @SequenceGenerator(name="usuario_sequence", sequenceName= "user_seq")
     @Column(name = "id")
     private Integer id;
 

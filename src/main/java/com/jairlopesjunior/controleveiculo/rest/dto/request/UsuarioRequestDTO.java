@@ -1,24 +1,18 @@
-package com.jairlopesjunior.controleveiculo.rest.dto;
+package com.jairlopesjunior.controleveiculo.rest.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.jairlopesjunior.controleveiculo.domain.entities.Veiculo;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.Authorization;
 import org.hibernate.validator.constraints.br.CPF;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.util.List;
 
-public class UsuarioDTO {
+public class UsuarioRequestDTO {
 
-    @ApiModelProperty(name = "id", value = "Id do Usuario", example = "null", position = 0)
-    private Integer id;
+    @ApiModelProperty(name = "id", value = "Id do Usuario", example = "1", position = 0)
+    private Integer idUsuario;
 
     @Size(message = "O nome do usuário não pode ultrapassar {max} caracteres.", max = 80)
     @ApiModelProperty(name = "nome", value = "Nome do Usuario", example = "James Gosling", position = 1)
@@ -38,12 +32,12 @@ public class UsuarioDTO {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate dataNascimento;
 
-    public Integer getId() {
-        return id;
+    public Integer getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getNome() {

@@ -3,7 +3,8 @@ package com.jairlopesjunior.controleveiculo.service.impl;
 import com.jairlopesjunior.controleveiculo.domain.entities.Veiculo;
 import com.jairlopesjunior.controleveiculo.domain.repositories.UsuarioRepository;
 import com.jairlopesjunior.controleveiculo.domain.repositories.VeiculoRepository;
-import com.jairlopesjunior.controleveiculo.rest.dto.VeiculoDTO;
+import com.jairlopesjunior.controleveiculo.rest.dto.request.VeiculoRequestDTO;
+import com.jairlopesjunior.controleveiculo.rest.dto.response.VeiculoResponseDTO;
 import com.jairlopesjunior.controleveiculo.service.VeiculoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -25,18 +26,16 @@ public class VeiculoServiceImpl implements VeiculoService {
 
     @Override
     @Transactional
-    public VeiculoDTO save(VeiculoDTO veiculoDTO) {
+    public VeiculoResponseDTO save(VeiculoRequestDTO veiculoDTO) {
         return usuarioRepository.findById(veiculoDTO.getId())
             .map( usuarioEncontrado -> {
                 Veiculo veiculoConvertido = converterDtoParaEntity(veiculoDTO);
                 veiculoConvertido.setUsuario(usuarioEncontrado);
-                Veiculo veiculoSalvo = veiculoRepository.save(veiculoConvertido);
-                VeiculoDTO veiculoDesconvertido = converterEntityParaDto(veiculoSalvo);
-                return veiculoDesconvertido;
+                return converterEntityParaDto(veiculoRepository.save(veiculoConvertido));
             }).orElseThrow( () -> new ResponseStatusException( HttpStatus.NOT_FOUND, "Usuario não encontrado" ));
     }
 
-    private Veiculo converterDtoParaEntity( VeiculoDTO dto ){
+    private Veiculo converterDtoParaEntity( VeiculoRequestDTO dto ){
         Veiculo veiculo = new Veiculo();
         veiculo.setAno(dto.getAno());
         veiculo.setMarca(dto.getMarca());
@@ -45,8 +44,8 @@ public class VeiculoServiceImpl implements VeiculoService {
         return veiculo;
     }
 
-    private VeiculoDTO converterEntityParaDto( Veiculo veiculo ){
-        VeiculoDTO dto = new VeiculoDTO();
+    private VeiculoResponseDTO converterEntityParaDto( Veiculo veiculo ){
+        VeiculoResponseDTO dto = new VeiculoResponseDTO();
         dto.setId(veiculo.getId());
         dto.setAno(veiculo.getAno());
         dto.setModelo(veiculo.getModelo());

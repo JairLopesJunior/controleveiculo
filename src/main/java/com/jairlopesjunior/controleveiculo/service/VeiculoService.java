@@ -1,8 +1,9 @@
 package com.jairlopesjunior.controleveiculo.service;
 
-import com.jairlopesjunior.controleveiculo.rest.dto.VeiculoDTO;
+import com.jairlopesjunior.controleveiculo.rest.dto.request.VeiculoRequestDTO;
+import com.jairlopesjunior.controleveiculo.rest.dto.response.VeiculoResponseDTO;
 
 public interface VeiculoService {
 
-    VeiculoDTO save( VeiculoDTO veiculoDTO );
+    VeiculoResponseDTO save(VeiculoRequestDTO veiculoDTO );
 }

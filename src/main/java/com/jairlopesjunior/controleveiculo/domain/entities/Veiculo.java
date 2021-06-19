@@ -9,7 +9,8 @@ import java.time.LocalDate;
 public class Veiculo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "veiculo_sequence")
+    @SequenceGenerator(name="veiculo_sequence", sequenceName= "vei_seq")
     @Column(name = "id")
     private Integer id;
 

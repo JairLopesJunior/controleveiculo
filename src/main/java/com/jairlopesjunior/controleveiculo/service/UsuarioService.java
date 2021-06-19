@@ -1,10 +1,11 @@
 package com.jairlopesjunior.controleveiculo.service;
 
-import com.jairlopesjunior.controleveiculo.rest.dto.UsuarioDTO;
-import com.jairlopesjunior.controleveiculo.rest.dto.UsuarioVeiculosDTO;
+import com.jairlopesjunior.controleveiculo.rest.dto.request.UsuarioRequestDTO;
+import com.jairlopesjunior.controleveiculo.rest.dto.response.UsuarioResponseDTO;
+import com.jairlopesjunior.controleveiculo.rest.dto.response.UsuarioVeiculosResponseDTO;
 
 public interface UsuarioService {
 
-    UsuarioDTO save( UsuarioDTO usuarioDTO );
-    UsuarioVeiculosDTO getUserById(Integer id );
+    UsuarioResponseDTO save(UsuarioRequestDTO usuarioDTO );
+    UsuarioVeiculosResponseDTO getUserById(Integer id );
 }
