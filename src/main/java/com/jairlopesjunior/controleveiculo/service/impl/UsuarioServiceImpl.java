@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.transaction.Transactional;
+
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
 
@@ -19,6 +21,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
+    @Transactional
     public UsuarioDTO save( UsuarioDTO usuarioDTO ){
         Usuario usuarioConvertido = converterDtoParaEntity(usuarioDTO);
         Usuario usuarioSalvo = usuarioRepository.save(usuarioConvertido);

@@ -13,7 +13,7 @@ import java.util.List;
 
 public class VeiculosDTO {
 
-    @ApiModelProperty(name = "id", value = "Id do Usuario", example = "null", position = 0)
+    @ApiModelProperty(name = "id", value = "Id do Usuario", example = "1", position = 0)
     private Integer id;
 
     @Size(message = "O nome do usuário não pode ultrapassar {max} caracteres.", max = 80)

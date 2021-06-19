@@ -1,7 +1,6 @@
 package com.jairlopesjunior.controleveiculo.rest.controller;
 
 import com.jairlopesjunior.controleveiculo.rest.dto.VeiculoDTO;
-import com.jairlopesjunior.controleveiculo.rest.dto.VeiculosDTO;
 import com.jairlopesjunior.controleveiculo.service.VeiculoService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

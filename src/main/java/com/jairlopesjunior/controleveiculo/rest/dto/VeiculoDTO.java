@@ -1,15 +1,15 @@
 package com.jairlopesjunior.controleveiculo.rest.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class VeiculoDTO {
 
-    @ApiModelProperty(name = "id", value = "Id do Veiculo", example = "null", position = 0)
+    @ApiModelProperty(name = "id", value = "Id do Usuario", example = "1", position = 0)
     private Integer id;
 
     @Size(message = "A marca do veiculo não pode ultrapassar {max} caracteres.", max = 80)
@@ -22,8 +22,9 @@ public class VeiculoDTO {
     @NotEmpty(message = "Campo modelo é obrigatório.")
     private String modelo;
 
-    @ApiModelProperty(name = "ano", value = "Ano do Veiculo", example = "", position = 3)
-    @NotEmpty(message = "Campo ano é obrigatório.")
+    @ApiModelProperty(name = "ano", value = "Ano do Veiculo", example = "01/01/2021", position = 3)
+    @NotNull
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate ano;
 
     @ApiModelProperty(name = "valor", value = "Valor do Veiculo", example = "50.00", position = 4)
@@ -69,3 +70,4 @@ public class VeiculoDTO {
         this.valor = valor;
     }
 }
+
