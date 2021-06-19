@@ -25,7 +25,7 @@ public class Usuario {
     @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
 
-    @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "usuario")
     private List<Veiculo> veiculos;
 
     public List<Veiculo> getVeiculos() {

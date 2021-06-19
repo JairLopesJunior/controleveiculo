@@ -1,5 +1,6 @@
 package com.jairlopesjunior.controleveiculo.rest.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.jairlopesjunior.controleveiculo.domain.entities.Veiculo;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.br.CPF;
@@ -11,7 +12,7 @@ import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.List;
 
-public class VeiculosDTO {
+public class UsuarioVeiculosDTO {
 
     @ApiModelProperty(name = "id", value = "Id do Usuario", example = "1", position = 0)
     private Integer id;
@@ -29,10 +30,14 @@ public class VeiculosDTO {
     @CPF(message = "Informe um CPF valido.")
     private String cpf;
 
+    @ApiModelProperty(name = "data de nascimento", value = "Data de nascimento do Usuario", example = "01/01/1998", position = 4)
+    @NotNull
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate dataNascimento;
 
+    @ApiModelProperty(dataType="List", value = "veiculos", position = 5)
     @Valid
-    private List<Veiculo> veiculos;
+    private List<VeiculoDTO> veiculos;
 
     public Integer getId() {
         return id;
@@ -74,11 +79,11 @@ public class VeiculosDTO {
         this.dataNascimento = dataNascimento;
     }
 
-    public List<Veiculo> getVeiculos() {
+    public List<VeiculoDTO> getVeiculos() {
         return veiculos;
     }
 
-    public void setVeiculos(List<Veiculo> veiculos) {
+    public void setVeiculos(List<VeiculoDTO> veiculos) {
         this.veiculos = veiculos;
     }
 }

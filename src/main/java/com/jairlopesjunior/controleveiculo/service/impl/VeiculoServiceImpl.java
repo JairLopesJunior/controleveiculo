@@ -27,13 +27,13 @@ public class VeiculoServiceImpl implements VeiculoService {
     @Transactional
     public VeiculoDTO save(VeiculoDTO veiculoDTO) {
         return usuarioRepository.findById(veiculoDTO.getId())
-                .map( usuarioEncontrado -> {
-                    Veiculo veiculoConvertido = converterDtoParaEntity(veiculoDTO);
-                    veiculoConvertido.setUsuario(usuarioEncontrado);
-                    Veiculo veiculoSalvo = veiculoRepository.save(veiculoConvertido);
-                    VeiculoDTO veiculoDesconvertido = converterEntityParaDto(veiculoSalvo);
-                    return veiculoDesconvertido;
-                }).orElseThrow( () -> new ResponseStatusException( HttpStatus.NOT_FOUND, "Usuario não encontrado" ));
+            .map( usuarioEncontrado -> {
+                Veiculo veiculoConvertido = converterDtoParaEntity(veiculoDTO);
+                veiculoConvertido.setUsuario(usuarioEncontrado);
+                Veiculo veiculoSalvo = veiculoRepository.save(veiculoConvertido);
+                VeiculoDTO veiculoDesconvertido = converterEntityParaDto(veiculoSalvo);
+                return veiculoDesconvertido;
+            }).orElseThrow( () -> new ResponseStatusException( HttpStatus.NOT_FOUND, "Usuario não encontrado" ));
     }
 
     private Veiculo converterDtoParaEntity( VeiculoDTO dto ){
@@ -45,13 +45,13 @@ public class VeiculoServiceImpl implements VeiculoService {
         return veiculo;
     }
 
-    private VeiculoDTO converterEntityParaDto( Veiculo usuario ){
+    private VeiculoDTO converterEntityParaDto( Veiculo veiculo ){
         VeiculoDTO dto = new VeiculoDTO();
-        dto.setId(usuario.getId());
-        dto.setAno(usuario.getAno());
-        dto.setModelo(usuario.getModelo());
-        dto.setMarca(usuario.getMarca());
-        dto.setValor(usuario.getValor());
+        dto.setId(veiculo.getId());
+        dto.setAno(veiculo.getAno());
+        dto.setModelo(veiculo.getModelo());
+        dto.setMarca(veiculo.getMarca());
+        dto.setValor(veiculo.getValor());
         return dto;
     }
 }

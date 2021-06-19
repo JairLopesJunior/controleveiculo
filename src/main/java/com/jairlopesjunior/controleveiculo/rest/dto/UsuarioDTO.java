@@ -1,12 +1,19 @@
 package com.jairlopesjunior.controleveiculo.rest.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.jairlopesjunior.controleveiculo.domain.entities.Veiculo;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.Authorization;
 import org.hibernate.validator.constraints.br.CPF;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.List;
 
 public class UsuarioDTO {
 
@@ -26,6 +33,9 @@ public class UsuarioDTO {
     @CPF(message = "Informe um CPF valido.")
     private String cpf;
 
+    @ApiModelProperty(name = "data de nascimento", value = "Data de nascimento do Usuario", example = "01/01/1998", position = 4)
+    @NotNull
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate dataNascimento;
 
     public Integer getId() {
