@@ -32,6 +32,9 @@ public class VeiculoResponseDTO {
     @ApiModelProperty(name = "valor", value = "Valor do Veiculo", example = "50.00", position = 4)
     private BigDecimal valor;
 
+    @ApiModelProperty(name = "dia do rodizio", value = "Dia do Rodizio do Usuario", position = 5)
+    private String diaRodizio;
+
     public Integer getId() {
         return id;
     }
@@ -70,5 +73,13 @@ public class VeiculoResponseDTO {
 
     public void setValor(BigDecimal valor) {
         this.valor = valor;
+    }
+
+    public String getDiaRodizio() {
+        return diaRodizio;
+    }
+
+    public void setDiaRodizio(String diaRodizio) {
+        this.diaRodizio = diaRodizio;
     }
 }

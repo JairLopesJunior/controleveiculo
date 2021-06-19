@@ -4,10 +4,11 @@ import com.jairlopesjunior.controleveiculo.domain.entities.Usuario;
 import com.jairlopesjunior.controleveiculo.domain.entities.Veiculo;
 import com.jairlopesjunior.controleveiculo.domain.repositories.UsuarioRepository;
 import com.jairlopesjunior.controleveiculo.rest.dto.request.UsuarioRequestDTO;
-import com.jairlopesjunior.controleveiculo.rest.dto.request.VeiculoRequestDTO;
 import com.jairlopesjunior.controleveiculo.rest.dto.response.UsuarioResponseDTO;
 import com.jairlopesjunior.controleveiculo.rest.dto.response.UsuarioVeiculosResponseDTO;
+import com.jairlopesjunior.controleveiculo.rest.dto.response.VeiculoResponseDTO;
 import com.jairlopesjunior.controleveiculo.service.UsuarioService;
+import com.jairlopesjunior.controleveiculo.utils.DiaRodizio;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -71,14 +72,16 @@ public class UsuarioServiceImpl implements UsuarioService {
         dto.setCpf(usuario.getCpf());
         dto.setEmail(usuario.getEmail());
         dto.setDataNascimento(usuario.getDataNascimento());
-        List<VeiculoRequestDTO> lista = new ArrayList<>();
+        List<VeiculoResponseDTO> lista = new ArrayList<>();
         for(Veiculo v : usuario.getVeiculos()){
-            VeiculoRequestDTO veiculoDTO = new VeiculoRequestDTO();
+            VeiculoResponseDTO veiculoDTO = new VeiculoResponseDTO();
+            DiaRodizio diaRodizio = new DiaRodizio();
             veiculoDTO.setId(v.getId());
             veiculoDTO.setValor(v.getValor());
             veiculoDTO.setMarca(v.getMarca());
             veiculoDTO.setModelo(v.getModelo());
             veiculoDTO.setAno(v.getAno());
+            veiculoDTO.setDiaRodizio(diaRodizio.verificarDiaDoRodizio(v.getAno().getYear()));
             lista.add(veiculoDTO);
         }
         dto.setVeiculos(lista);

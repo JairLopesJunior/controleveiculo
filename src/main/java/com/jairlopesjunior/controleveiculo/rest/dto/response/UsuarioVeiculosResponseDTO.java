@@ -1,8 +1,6 @@
 package com.jairlopesjunior.controleveiculo.rest.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.jairlopesjunior.controleveiculo.domain.entities.Veiculo;
-import com.jairlopesjunior.controleveiculo.rest.dto.request.VeiculoRequestDTO;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -38,7 +36,7 @@ public class UsuarioVeiculosResponseDTO {
 
     @ApiModelProperty(dataType="List", value = "veiculos", position = 5)
     @Valid
-    private List<VeiculoRequestDTO> veiculos;
+    private List<VeiculoResponseDTO> veiculos;
 
     public Integer getIdUsuario() {
         return idUsuario;
@@ -80,11 +78,11 @@ public class UsuarioVeiculosResponseDTO {
         this.dataNascimento = dataNascimento;
     }
 
-    public List<VeiculoRequestDTO> getVeiculos() {
+    public List<VeiculoResponseDTO> getVeiculos() {
         return veiculos;
     }
 
-    public void setVeiculos(List<VeiculoRequestDTO> veiculos) {
+    public void setVeiculos(List<VeiculoResponseDTO> veiculos) {
         this.veiculos = veiculos;
     }
 }
