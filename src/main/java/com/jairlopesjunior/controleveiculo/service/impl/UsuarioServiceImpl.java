@@ -8,7 +8,7 @@ import com.jairlopesjunior.controleveiculo.rest.dto.response.UsuarioResponseDTO;
 import com.jairlopesjunior.controleveiculo.rest.dto.response.UsuarioVeiculosResponseDTO;
 import com.jairlopesjunior.controleveiculo.rest.dto.response.VeiculoResponseDTO;
 import com.jairlopesjunior.controleveiculo.service.UsuarioService;
-import com.jairlopesjunior.controleveiculo.utils.DiaRodizio;
+import com.jairlopesjunior.controleveiculo.utils.Rodizio;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -32,17 +32,18 @@ public class UsuarioServiceImpl implements UsuarioService {
         Usuario usuarioConvertido = converterDtoParaEntity(usuarioDTO);
         Usuario usuarioSalvo = usuarioRepository.save(usuarioConvertido);
         UsuarioResponseDTO usuarioDesconvertido = converterEntityParaDto(usuarioSalvo);
+        Rodizio rodizio = new Rodizio();
         return usuarioDesconvertido;
     }
 
     @Override
     public UsuarioVeiculosResponseDTO getUserById(Integer id ) {
         return usuarioRepository.findById(id)
-                .map( usuarioEncontrado -> {
-                    UsuarioVeiculosResponseDTO dto = converterUsuarioVeiculosParaDto(usuarioEncontrado);
-                    return dto;
-                })
-                .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado." ));
+            .map( usuarioEncontrado -> {
+                UsuarioVeiculosResponseDTO dto = converterUsuarioVeiculosParaDto(usuarioEncontrado);
+                return dto;
+            })
+            .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado." ));
     }
 
     // Poderia utilizar MapStruct aqui
@@ -75,16 +76,19 @@ public class UsuarioServiceImpl implements UsuarioService {
         List<VeiculoResponseDTO> lista = new ArrayList<>();
         for(Veiculo v : usuario.getVeiculos()){
             VeiculoResponseDTO veiculoDTO = new VeiculoResponseDTO();
-            DiaRodizio diaRodizio = new DiaRodizio();
+            Rodizio rodizio = new Rodizio();
+            Integer anoVeiculo = v.getAno().getYear();
             veiculoDTO.setId(v.getId());
             veiculoDTO.setValor(v.getValor());
             veiculoDTO.setMarca(v.getMarca());
             veiculoDTO.setModelo(v.getModelo());
             veiculoDTO.setAno(v.getAno());
-            veiculoDTO.setDiaRodizio(diaRodizio.verificarDiaDoRodizio(v.getAno().getYear()));
+            veiculoDTO.setDiaRodizio(rodizio.verificarDiaDoRodizio(anoVeiculo));
+            veiculoDTO.setRodizio(rodizio.isAtivo(anoVeiculo));
             lista.add(veiculoDTO);
         }
         dto.setVeiculos(lista);
         return dto;
     }
+
 }

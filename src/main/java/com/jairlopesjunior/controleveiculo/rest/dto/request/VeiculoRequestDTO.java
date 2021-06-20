@@ -2,11 +2,14 @@ package com.jairlopesjunior.controleveiculo.rest.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@ResponseStatus(HttpStatus.BAD_REQUEST)
 public class VeiculoRequestDTO {
 
     @ApiModelProperty(name = "id", value = "Id do Usuario", example = "1", position = 0)

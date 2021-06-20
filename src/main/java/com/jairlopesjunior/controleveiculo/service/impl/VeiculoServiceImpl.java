@@ -6,6 +6,7 @@ import com.jairlopesjunior.controleveiculo.domain.repositories.VeiculoRepository
 import com.jairlopesjunior.controleveiculo.rest.dto.request.VeiculoRequestDTO;
 import com.jairlopesjunior.controleveiculo.rest.dto.response.VeiculoResponseDTO;
 import com.jairlopesjunior.controleveiculo.service.VeiculoService;
+import com.jairlopesjunior.controleveiculo.utils.Rodizio;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -47,11 +48,15 @@ public class VeiculoServiceImpl implements VeiculoService {
 
     private VeiculoResponseDTO converterEntityParaDto( Veiculo veiculo ){
         VeiculoResponseDTO dto = new VeiculoResponseDTO();
+        Rodizio rodizio = new Rodizio();
+        Integer anoVeiculo = veiculo.getAno().getYear();
         dto.setId(veiculo.getId());
         dto.setAno(veiculo.getAno());
         dto.setModelo(veiculo.getModelo());
         dto.setMarca(veiculo.getMarca());
         dto.setValor(veiculo.getValor());
+        dto.setDiaRodizio(rodizio.verificarDiaDoRodizio(anoVeiculo));
+        dto.setRodizio(rodizio.isAtivo(anoVeiculo));
         return dto;
     }
 }

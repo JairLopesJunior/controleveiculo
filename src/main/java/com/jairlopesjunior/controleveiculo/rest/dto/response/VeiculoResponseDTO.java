@@ -32,8 +32,11 @@ public class VeiculoResponseDTO {
     @ApiModelProperty(name = "valor", value = "Valor do Veiculo", example = "50.00", position = 4)
     private BigDecimal valor;
 
-    @ApiModelProperty(name = "dia do rodizio", value = "Dia do Rodizio do Usuario", position = 5)
+    @ApiModelProperty(name = "dia do rodizio", value = "Dia do Rodizio", position = 5)
     private String diaRodizio;
+
+    @ApiModelProperty(name = "dia rodizio ativo", value = "Dia do Rodizio Ativo", position = 6)
+    private boolean rodizio;
 
     public Integer getId() {
         return id;
@@ -81,5 +84,13 @@ public class VeiculoResponseDTO {
 
     public void setDiaRodizio(String diaRodizio) {
         this.diaRodizio = diaRodizio;
+    }
+
+    public boolean isRodizio() {
+        return rodizio;
+    }
+
+    public void setRodizio(boolean rodizio) {
+        this.rodizio = rodizio;
     }
 }
