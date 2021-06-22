@@ -1,10 +1,10 @@
 package com.jairlopesjunior.controleveiculo.service.impl;
 
+import com.jairlopesjunior.controleveiculo.domain.entities.MarcaEspecificaVeiculoFipe;
 import com.jairlopesjunior.controleveiculo.domain.entities.Veiculo;
 import com.jairlopesjunior.controleveiculo.domain.repositories.UsuarioRepository;
 import com.jairlopesjunior.controleveiculo.domain.repositories.VeiculoRepository;
 import com.jairlopesjunior.controleveiculo.rest.dto.request.VeiculoRequestDTO;
-import com.jairlopesjunior.controleveiculo.rest.dto.response.VDTO;
 import com.jairlopesjunior.controleveiculo.rest.dto.response.VeiculoResponseDTO;
 import com.jairlopesjunior.controleveiculo.service.VeiculoFipeService;
 import com.jairlopesjunior.controleveiculo.service.VeiculoService;
@@ -14,8 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
-import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class VeiculoServiceImpl implements VeiculoService {
@@ -26,7 +25,7 @@ public class VeiculoServiceImpl implements VeiculoService {
 
     private VeiculoFipeService veiculoFipeService;
 
-    public VeiculoServiceImpl(VeiculoRepository veiculoRepository, UsuarioRepository usuarioRepository, VeiculoFipeService veiculoFipeService) {
+    public VeiculoServiceImpl(VeiculoRepository veiculoRepository, UsuarioRepository usuarioRepository) {
         this.veiculoRepository = veiculoRepository;
         this.usuarioRepository = usuarioRepository;
         this.veiculoFipeService = veiculoFipeService;
@@ -46,9 +45,9 @@ public class VeiculoServiceImpl implements VeiculoService {
     private Veiculo converterDtoParaEntity( VeiculoRequestDTO dto ){
         Veiculo veiculo = new Veiculo();
         veiculo.setAno(dto.getAno());
-        veiculo.setMarca(dto.getMarca());
+        veiculo.setMarca(buscarMarca(dto.getMarca()));
         veiculo.setModelo(dto.getModelo());
-        veiculo.setValor(buscar(dto.getMarca(), dto.getModelo(), dto.getAno()));
+        //veiculo.setValor(buscar(dto.getMarca(), dto.getModelo(), dto.getAno()));
         return veiculo;
     }
 
@@ -66,9 +65,21 @@ public class VeiculoServiceImpl implements VeiculoService {
         return dto;
     }
 
-    private BigDecimal buscar(String marca, String modelo, LocalDate ano){
-        String anoConvertido = ano.getYear() + "-" + ano.getDayOfMonth();
-        VDTO vDTO = veiculoFipeService.buscaValorVeiculo(marca, modelo, anoConvertido);
-        return new BigDecimal(vDTO.getValor());
+    @Transactional
+    private String buscarMarca(String marca){
+        try{
+            String parametro = null;
+            List<MarcaEspecificaVeiculoFipe> marcaEncontrada = veiculoFipeService.buscaMarcas(marca+".json");
+            System.out.println("Passou");
+            for(MarcaEspecificaVeiculoFipe marcaEspecifica: marcaEncontrada){
+                if(marcaEspecifica.getName().equalsIgnoreCase(marca))
+                    parametro = marcaEspecifica.getId();
+            }
+            System.out.println(marcaEncontrada.get(0).getName());
+            return parametro;
+        }catch (Exception e){
+            return e.getMessage();
+        }
     }
+
 }

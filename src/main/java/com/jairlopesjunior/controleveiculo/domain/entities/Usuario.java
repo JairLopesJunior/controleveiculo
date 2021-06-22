@@ -14,7 +14,7 @@ public class Usuario {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "nome", length = 80)
+    @Column(name = "nome", length = 80, nullable = false)
     private String nome;
 
     @Column(name = "email", nullable = false, unique = true)
@@ -23,7 +23,7 @@ public class Usuario {
     @Column(name = "cpf", nullable = false, unique = true, length = 11)
     private String cpf;
 
-    @Column(name = "data_nascimento")
+    @Column(name = "data_nascimento", nullable = false)
     private LocalDate dataNascimento;
 
     @OneToMany(mappedBy = "usuario")

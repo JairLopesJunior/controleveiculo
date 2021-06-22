@@ -1,36 +1,15 @@
-package com.jairlopesjunior.controleveiculo.rest.dto.response;
+package com.jairlopesjunior.controleveiculo.domain.entities;
 
-import io.swagger.annotations.ApiModelProperty;
+public class VeiculoFipe {
 
-import java.time.LocalDate;
-
-public class VDTO {
-
-    @ApiModelProperty(name = "valor", value = "Valor do Veiculo", example = "50.00", position = 0)
     private String Valor;
-
-    @ApiModelProperty(name = "marca", value = "Marca do Veiculo", example = "Fiat", position = 1)
-    private String marca;
-
-    @ApiModelProperty(name = "modelo", value = "Modelo do Veiculo", example = "Uno", position = 2)
-    private String modelo;
-
-    @ApiModelProperty(name = "anoModelo", value = "anoModelo", example = "01/01/2021", position = 3)
-    private LocalDate anoModelo;
-
-    @ApiModelProperty(name = "combustivel", value = "Combustivel", position = 4)
+    private String Marca;
+    private String Modelo;
+    private Integer AnoModelo;
     private String Combustivel;
-
-    @ApiModelProperty(name = "CodigoFipe", value = "CodigoFipe", position = 5)
     private String CodigoFipe;
-
-    @ApiModelProperty(name = "MesReferencia", value = "MesReferencia", position = 6)
     private String MesReferencia;
-
-    @ApiModelProperty(name = "TipoVeiculo", value = "TipoVeiculo", position = 7)
     private Integer TipoVeiculo;
-
-    @ApiModelProperty(name = "SiglaCombustivel", value = "SiglaCombustivel", position = 8)
     private String SiglaCombustivel;
 
     public String getValor() {
@@ -42,27 +21,27 @@ public class VDTO {
     }
 
     public String getMarca() {
-        return marca;
+        return Marca;
     }
 
     public void setMarca(String marca) {
-        this.marca = marca;
+        Marca = marca;
     }
 
     public String getModelo() {
-        return modelo;
+        return Modelo;
     }
 
     public void setModelo(String modelo) {
-        this.modelo = modelo;
+        Modelo = modelo;
     }
 
-    public LocalDate getAnoModelo() {
-        return anoModelo;
+    public Integer getAnoModelo() {
+        return AnoModelo;
     }
 
-    public void setAnoModelo(LocalDate anoModelo) {
-        this.anoModelo = anoModelo;
+    public void setAnoModelo(Integer anoModelo) {
+        AnoModelo = anoModelo;
     }
 
     public String getCombustivel() {
@@ -105,5 +84,3 @@ public class VDTO {
         SiglaCombustivel = siglaCombustivel;
     }
 }
-
-
