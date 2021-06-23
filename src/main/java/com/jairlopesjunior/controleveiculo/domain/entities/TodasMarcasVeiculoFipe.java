@@ -1,6 +1,6 @@
 package com.jairlopesjunior.controleveiculo.domain.entities;
 
-public class MarcaVeiculoFipe {
+public class TodasMarcasVeiculoFipe {
 
     private String name;
     private String fipe_name;

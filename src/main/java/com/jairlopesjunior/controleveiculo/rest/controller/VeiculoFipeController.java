@@ -1,6 +1,6 @@
 package com.jairlopesjunior.controleveiculo.rest.controller;
 
-import com.jairlopesjunior.controleveiculo.domain.entities.MarcaVeiculoFipe;
+import com.jairlopesjunior.controleveiculo.domain.entities.TodasMarcasVeiculoFipe;
 import com.jairlopesjunior.controleveiculo.service.VeiculoFipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,18 +24,18 @@ public class VeiculoFipeController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public List<MarcaVeiculoFipe> getVeiculo() {
+    public List<TodasMarcasVeiculoFipe> getVeiculo() {
         return veiculoFipeService.buscaTudo()
-                .stream()
-                .map(marca -> {
-                    MarcaVeiculoFipe marcaVeiculoFipe = new MarcaVeiculoFipe();
-                    marcaVeiculoFipe.setFipe_name(marca.getFipe_name());
-                    marcaVeiculoFipe.setId(marca.getId());
-                    marcaVeiculoFipe.setKey(marca.getKey());
-                    marcaVeiculoFipe.setName(marca.getName());
-                    marcaVeiculoFipe.setOrder(marca.getOrder());
-                    return marcaVeiculoFipe;
-                })
-                .collect(Collectors.toList());
+            .stream()
+            .map(marca -> {
+                TodasMarcasVeiculoFipe marcaVeiculoFipe = new TodasMarcasVeiculoFipe();
+                marcaVeiculoFipe.setFipe_name(marca.getFipe_name());
+                marcaVeiculoFipe.setId(marca.getId());
+                marcaVeiculoFipe.setKey(marca.getKey());
+                marcaVeiculoFipe.setName(marca.getName());
+                marcaVeiculoFipe.setOrder(marca.getOrder());
+                return marcaVeiculoFipe;
+            })
+            .collect(Collectors.toList());
     }
 }

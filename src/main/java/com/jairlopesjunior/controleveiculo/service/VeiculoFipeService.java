@@ -1,12 +1,13 @@
 package com.jairlopesjunior.controleveiculo.service;
 
+import com.jairlopesjunior.controleveiculo.domain.entities.AnoEspecificoVeiculoFipe;
 import com.jairlopesjunior.controleveiculo.domain.entities.MarcaEspecificaVeiculoFipe;
-import com.jairlopesjunior.controleveiculo.domain.entities.MarcaVeiculoFipe;
+import com.jairlopesjunior.controleveiculo.domain.entities.ModeloEspecificoVeiculoFipe;
+import com.jairlopesjunior.controleveiculo.domain.entities.TodasMarcasVeiculoFipe;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -14,15 +15,15 @@ import java.util.List;
 public interface VeiculoFipeService {
 
     @GetMapping(value = "/marcas.json", consumes = MediaType.APPLICATION_JSON_VALUE)
-    List<MarcaVeiculoFipe> buscaTudo();
+    List<TodasMarcasVeiculoFipe> buscaTudo();
 
-    @PostMapping(value = "/veiculos/{marca}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/veiculos/{marca}.json", consumes = MediaType.APPLICATION_JSON_VALUE)
     List<MarcaEspecificaVeiculoFipe> buscaMarcas(@PathVariable("marca") String marca);
 
-//    @GetMapping(value = "/veiculo/{marca}/{modelo}", consumes = MediaType.APPLICATION_JSON_VALUE)
-//    List<VeiculoFipe> buscaModelos(@PathVariable("marca") String marca, @PathVariable("modelo") String modelo);
-//
-//    @GetMapping(value = "/veiculo/{marca}/{modelo}/{ano}.json", consumes = MediaType.APPLICATION_JSON_VALUE)
-//    VeiculoFipe buscaVeiculoPeloAno(@PathVariable("marca") String marca, @PathVariable("modelo") String modelo, @PathVariable("ano") String ano);
+    @GetMapping(value = "/veiculo/{marca}/{modelo}.json", consumes = MediaType.APPLICATION_JSON_VALUE)
+    List<ModeloEspecificoVeiculoFipe> buscaModelos(@PathVariable("marca") String marca, @PathVariable("modelo") String modelo);
+
+    @GetMapping(value = "/veiculo/{marca}/{modelo}/{ano}.json", consumes = MediaType.APPLICATION_JSON_VALUE)
+    AnoEspecificoVeiculoFipe buscaVeiculoPeloAno(@PathVariable("marca") String marca, @PathVariable("modelo") String modelo, @PathVariable("ano") String ano);
 
 }
