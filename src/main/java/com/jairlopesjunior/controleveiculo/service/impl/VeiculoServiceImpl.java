@@ -68,25 +68,16 @@ public class VeiculoServiceImpl implements VeiculoService {
 
     @Transactional
     private BigDecimal buscarTodasMarcas(String marca, String modelo, LocalDate ano){
-        try{
-            System.out.println(marca);
-            System.out.println(modelo);
-            System.out.println(ano);
-            List<TodasMarcasVeiculoFipe> lista = veiculoFipeService.buscaTudo();
-            System.out.println(lista.get(0).getFipe_name());
-            for(TodasMarcasVeiculoFipe marcaVeiculoFipe: lista){
-                if(marcaVeiculoFipe.getName().equalsIgnoreCase(marca))
-                   return buscarMarca(marcaVeiculoFipe.getId().toString(), modelo, ano);
-            }
-        }catch (Exception e){
-            System.out.println(e.getMessage());
+        List<TodasMarcasVeiculoFipe> lista = veiculoFipeService.buscaTudo();
+        for(TodasMarcasVeiculoFipe marcaVeiculoFipe: lista){
+            if(marcaVeiculoFipe.getName().equalsIgnoreCase(marca))
+               return buscarMarca(marcaVeiculoFipe.getId().toString(), modelo, ano);
         }
         return null;
     }
 
     private BigDecimal buscarMarca(String marcaEncontrada, String modelo, LocalDate ano){
         List<MarcaEspecificaVeiculoFipe> marcaEspecifica = veiculoFipeService.buscaMarcas(marcaEncontrada);
-        System.out.println(marcaEspecifica.get(0).getName());
         for(MarcaEspecificaVeiculoFipe marcaEspecificaVeiculoFipe: marcaEspecifica){
             if(marcaEspecificaVeiculoFipe.getName().equalsIgnoreCase(modelo))
                 return buscarModelo(marcaEncontrada, marcaEspecificaVeiculoFipe.getId().toString(), ano);
@@ -94,25 +85,21 @@ public class VeiculoServiceImpl implements VeiculoService {
         return null;
     }
 
-    private BigDecimal buscarModelo(String marcaEncontrada, String modelo, LocalDate ano){
-        String anoCompletoConvertido = ano.getMonth().toString() + "-" + String.valueOf(ano.getYear());
-        List<ModeloEspecificoVeiculoFipe> modeloEspecifico = veiculoFipeService.buscaModelos(marcaEncontrada ,modelo);
-        System.out.println(anoCompletoConvertido);
+    private BigDecimal buscarModelo(String marcaEncontrada, String modeloEncontrado, LocalDate ano){
+        String anoCompletoConvertido = String.valueOf(ano.getYear()) + "-" + String.valueOf(ano.getDayOfMonth());
+        List<ModeloEspecificoVeiculoFipe> modeloEspecifico = veiculoFipeService.buscaModelos(marcaEncontrada, modeloEncontrado);
         for(ModeloEspecificoVeiculoFipe modeloEspecificoVeiculoFipe: modeloEspecifico){
             if(modeloEspecificoVeiculoFipe.getId().equalsIgnoreCase(anoCompletoConvertido))
-                return buscarAno(marcaEncontrada, modeloEspecificoVeiculoFipe.getId().toString(), anoCompletoConvertido);
+                return buscarAno(marcaEncontrada, modeloEncontrado, anoCompletoConvertido);
         }
         return null;
     }
 
     private BigDecimal buscarAno(String marcaEncontrada, String modeloEncontrado, String ano){
-        System.out.println("Entrou");
         AnoEspecificoVeiculoFipe anoEspecificoVeiculoFipe = veiculoFipeService.buscaVeiculoPeloAno(marcaEncontrada, modeloEncontrado, ano);
         Integer tamanho = anoEspecificoVeiculoFipe.getPreco().length();
-        System.out.println(tamanho);
         String anoConvertido = anoEspecificoVeiculoFipe.getPreco().substring(3, tamanho);
-        System.out.println(anoConvertido);
-        return new BigDecimal(anoConvertido);
+        return new BigDecimal(anoConvertido.replace(",", ""));
     }
 
 }

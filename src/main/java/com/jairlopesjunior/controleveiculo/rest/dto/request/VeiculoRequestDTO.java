@@ -5,8 +5,9 @@ import io.swagger.annotations.ApiModelProperty;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import javax.validation.constraints.*;
-import java.math.BigDecimal;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -29,9 +30,6 @@ public class VeiculoRequestDTO {
     @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate ano;
-
-    @ApiModelProperty(name = "valor", value = "Valor do Veiculo", example = "50.00", position = 4)
-    private BigDecimal valor;
 
     public Integer getId() {
         return id;
@@ -65,12 +63,5 @@ public class VeiculoRequestDTO {
         this.ano = ano;
     }
 
-    public BigDecimal getValor() {
-        return valor;
-    }
-
-    public void setValor(BigDecimal valor) {
-        this.valor = valor;
-    }
 }
 

@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
@@ -19,7 +20,7 @@ public class UsuarioRequestDTO {
 
     @Size(message = "O nome do usuário não pode ultrapassar {max} caracteres.", max = 80)
     @ApiModelProperty(name = "nome", value = "Nome do Usuario", example = "James Gosling", position = 1)
-    @NotNull(message = "Campo nome é obrigatório.")
+    @NotEmpty(message = "Campo nome é obrigatório.")
     private String nome;
 
     @ApiModelProperty(name = "email", value = "Email do Usuario", example = "james@gmail.com", position = 2)
