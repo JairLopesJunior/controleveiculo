@@ -13,30 +13,30 @@ import java.time.LocalDate;
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class VeiculoRequestDTO {
 
-    @ApiModelProperty(name = "id", value = "Id do Usuario", example = "1", position = 0)
-    private Integer id;
+    @ApiModelProperty(name = "Id do Usuário", value = "Id do Usuario", example = "1", position = 0)
+    private Integer idUsuario;
 
     @Size(message = "A marca do veiculo não pode ultrapassar {max} caracteres.", max = 80)
-    @ApiModelProperty(name = "marca", value = "Marca do Veiculo", example = "Fiat", position = 1)
+    @ApiModelProperty(name = "marca", value = "Marca do Veiculo", example = "FIAT", position = 1)
     @NotEmpty(message = "Campo marca é obrigatório.")
     private String marca;
 
     @Size(message = "O modelo do veiculo não pode ultrapassar {max} caracteres.", max = 80)
-    @ApiModelProperty(name = "modelo", value = "Modelo do Veiculo", example = "Uno", position = 2)
+    @ApiModelProperty(name = "modelo", value = "Modelo do Veiculo", example = "Palio 1.0 ECONOMY Fire Flex 8V 4p", position = 2)
     @NotEmpty(message = "Campo modelo é obrigatório.")
     private String modelo;
 
-    @ApiModelProperty(name = "ano", value = "Ano do Veiculo", example = "01/01/2021", position = 3)
+    @ApiModelProperty(name = "ano", value = "Ano do Veiculo", example = "01/01/2013", position = 3)
     @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate ano;
 
-    public Integer getId() {
-        return id;
+    public Integer getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getMarca() {

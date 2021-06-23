@@ -27,9 +27,6 @@ public class VeiculoController {
     @Autowired
     private VeiculoFipeService veiculoFipeService;
 
-    @Autowired
-    private VeiculoFipeController veiculoFipeController;
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public VeiculoResponseDTO save(@Valid @RequestBody VeiculoRequestDTO veiculoDTO ){
@@ -54,9 +51,8 @@ public class VeiculoController {
     }
 
     @GetMapping("/veiculos/{marca}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public List<MarcaEspecificaVeiculoFipe> getMarca( @PathVariable("marca") String marca ) {
-        return veiculoFipeService.buscaMarcas(marca)
+    public ResponseEntity<List<MarcaEspecificaVeiculoFipe>> getMarca( @PathVariable("marca") String marca ) {
+        List<MarcaEspecificaVeiculoFipe> marcasEncontradas = veiculoFipeService.buscaMarcas(marca)
             .stream()
             .map(marcaEncontrada -> {
                 MarcaEspecificaVeiculoFipe marcaEspecificaVeiculoFipe = new MarcaEspecificaVeiculoFipe();
@@ -69,12 +65,17 @@ public class VeiculoController {
                 return marcaEspecificaVeiculoFipe;
             })
             .collect(Collectors.toList());
+
+        if(marcasEncontradas == null)
+            return ResponseEntity.notFound().build();
+
+        return ResponseEntity.accepted().body(marcasEncontradas);
     }
 
     @GetMapping("/veiculos/{marca}/{modelo}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public List<ModeloEspecificoVeiculoFipe> getModelo( @PathVariable("marca") String marca, @PathVariable("modelo") String modelo ) {
-        return veiculoFipeService.buscaModelos( marca, modelo )
+    public ResponseEntity<List<ModeloEspecificoVeiculoFipe>> getModelo( @PathVariable("marca") String marca, @PathVariable("modelo") String modelo ) {
+        List<ModeloEspecificoVeiculoFipe> modelosEncontrados = veiculoFipeService.buscaModelos( marca, modelo )
                 .stream()
                 .map(modeloEncontrado -> {
                     ModeloEspecificoVeiculoFipe modeloEspecificoVeiculoFipe = new ModeloEspecificoVeiculoFipe();
@@ -88,30 +89,34 @@ public class VeiculoController {
                     return modeloEspecificoVeiculoFipe;
                 })
                 .collect(Collectors.toList());
+
+        if(modelosEncontrados == null)
+            return ResponseEntity.notFound().build();
+
+        return ResponseEntity.accepted().body(modelosEncontrados);
     }
 
     @GetMapping("/veiculos/{marca}/{modelo}/{ano}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<AnoEspecificoVeiculoFipe> getVeiculo(@PathVariable("marca") String marca, @PathVariable("modelo") String modelo,
-                                               @PathVariable("ano") String ano ) {
-        AnoEspecificoVeiculoFipe anoEspecificoVeiculoFipeEncontrado = veiculoFipeService.buscaVeiculoPeloAno( marca, modelo, ano );
+                                                               @PathVariable("ano") String ano ) {
+        AnoEspecificoVeiculoFipe anoVeiculoEncontrado = veiculoFipeService.buscaVeiculoPeloAno( marca, modelo, ano );
 
-        if(anoEspecificoVeiculoFipeEncontrado == null)
+        if(anoVeiculoEncontrado == null)
             return ResponseEntity.notFound().build();
 
-        AnoEspecificoVeiculoFipe anoEspecificoVeiculoFipe = new AnoEspecificoVeiculoFipe();
-        anoEspecificoVeiculoFipe.setVeiculo(anoEspecificoVeiculoFipeEncontrado.getVeiculo());
-        anoEspecificoVeiculoFipe.setFipe_codigo(anoEspecificoVeiculoFipeEncontrado.getFipe_codigo());
-        anoEspecificoVeiculoFipe.setId(anoEspecificoVeiculoFipeEncontrado.getId());
-        anoEspecificoVeiculoFipe.setKey(anoEspecificoVeiculoFipeEncontrado.getKey());
-        anoEspecificoVeiculoFipe.setCombustivel(anoEspecificoVeiculoFipeEncontrado.getCombustivel());
-        anoEspecificoVeiculoFipe.setMarca(anoEspecificoVeiculoFipeEncontrado.getMarca());
-        anoEspecificoVeiculoFipe.setPreco(anoEspecificoVeiculoFipeEncontrado.getPreco());
-        anoEspecificoVeiculoFipe.setReferencia(anoEspecificoVeiculoFipeEncontrado.getReferencia());
-        anoEspecificoVeiculoFipe.setTime(anoEspecificoVeiculoFipeEncontrado.getTime());
-        anoEspecificoVeiculoFipe.setAno_modelo(anoEspecificoVeiculoFipeEncontrado.getAno_modelo());
-        anoEspecificoVeiculoFipe.setName(anoEspecificoVeiculoFipeEncontrado.getName());
-        return ResponseEntity.accepted().body(anoEspecificoVeiculoFipeEncontrado);
+        AnoEspecificoVeiculoFipe anoVeiculo = new AnoEspecificoVeiculoFipe();
+        anoVeiculo.setVeiculo(anoVeiculoEncontrado.getVeiculo());
+        anoVeiculo.setFipe_codigo(anoVeiculoEncontrado.getFipe_codigo());
+        anoVeiculo.setId(anoVeiculoEncontrado.getId());
+        anoVeiculo.setKey(anoVeiculoEncontrado.getKey());
+        anoVeiculo.setCombustivel(anoVeiculoEncontrado.getCombustivel());
+        anoVeiculo.setMarca(anoVeiculoEncontrado.getMarca());
+        anoVeiculo.setPreco(anoVeiculoEncontrado.getPreco());
+        anoVeiculo.setReferencia(anoVeiculoEncontrado.getReferencia());
+        anoVeiculo.setTime(anoVeiculoEncontrado.getTime());
+        anoVeiculo.setAno_modelo(anoVeiculoEncontrado.getAno_modelo());
+        anoVeiculo.setName(anoVeiculoEncontrado.getName());
+        return ResponseEntity.accepted().body(anoVeiculoEncontrado);
     }
 
 }

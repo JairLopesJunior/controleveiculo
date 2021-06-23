@@ -3,6 +3,8 @@ package com.jairlopesjunior.controleveiculo.service.impl;
 import com.jairlopesjunior.controleveiculo.domain.entities.*;
 import com.jairlopesjunior.controleveiculo.domain.repositories.UsuarioRepository;
 import com.jairlopesjunior.controleveiculo.domain.repositories.VeiculoRepository;
+import com.jairlopesjunior.controleveiculo.exception.MarcaNotFoundException;
+import com.jairlopesjunior.controleveiculo.exception.ModeloNotFoundException;
 import com.jairlopesjunior.controleveiculo.rest.dto.request.VeiculoRequestDTO;
 import com.jairlopesjunior.controleveiculo.rest.dto.response.VeiculoResponseDTO;
 import com.jairlopesjunior.controleveiculo.service.VeiculoFipeService;
@@ -35,7 +37,7 @@ public class VeiculoServiceImpl implements VeiculoService {
     @Override
     @Transactional
     public VeiculoResponseDTO save(VeiculoRequestDTO veiculoDTO) {
-        return usuarioRepository.findById(veiculoDTO.getId())
+        return usuarioRepository.findById(veiculoDTO.getIdUsuario())
             .map( usuarioEncontrado -> {
                 Veiculo veiculoConvertido = converterDtoParaEntity(veiculoDTO);
                 veiculoConvertido.setUsuario(usuarioEncontrado);
@@ -48,7 +50,7 @@ public class VeiculoServiceImpl implements VeiculoService {
         veiculo.setAno(dto.getAno());
         veiculo.setMarca(dto.getMarca());
         veiculo.setModelo(dto.getModelo());
-        veiculo.setValor(buscarTodasMarcas(dto.getMarca(), dto.getModelo(), dto.getAno()));
+        veiculo.setValor(new BigDecimal(buscarTodasMarcas(dto.getMarca(), dto.getModelo(), dto.getAno())));
         return veiculo;
     }
 
@@ -67,25 +69,25 @@ public class VeiculoServiceImpl implements VeiculoService {
     }
 
     @Transactional
-    private BigDecimal buscarTodasMarcas(String marca, String modelo, LocalDate ano){
+    private String buscarTodasMarcas(String marca, String modelo, LocalDate ano){
         List<TodasMarcasVeiculoFipe> lista = veiculoFipeService.buscaTudo();
         for(TodasMarcasVeiculoFipe marcaVeiculoFipe: lista){
             if(marcaVeiculoFipe.getName().equalsIgnoreCase(marca))
                return buscarMarca(marcaVeiculoFipe.getId().toString(), modelo, ano);
         }
-        return null;
+        throw new MarcaNotFoundException("Nenhuma marca encontrada com o parametro fornecido.");
     }
 
-    private BigDecimal buscarMarca(String marcaEncontrada, String modelo, LocalDate ano){
-        List<MarcaEspecificaVeiculoFipe> marcaEspecifica = veiculoFipeService.buscaMarcas(marcaEncontrada);
-        for(MarcaEspecificaVeiculoFipe marcaEspecificaVeiculoFipe: marcaEspecifica){
+    private String buscarMarca(String marcaEncontrada, String modelo, LocalDate ano) {
+        List<MarcaEspecificaVeiculoFipe> marcasEncontradas = veiculoFipeService.buscaMarcas(marcaEncontrada);
+        for(MarcaEspecificaVeiculoFipe marcaEspecificaVeiculoFipe: marcasEncontradas){
             if(marcaEspecificaVeiculoFipe.getName().equalsIgnoreCase(modelo))
                 return buscarModelo(marcaEncontrada, marcaEspecificaVeiculoFipe.getId().toString(), ano);
         }
-        return null;
+        throw new ModeloNotFoundException("Nenhum modelo encontrado com o parametro fornecido.");
     }
 
-    private BigDecimal buscarModelo(String marcaEncontrada, String modeloEncontrado, LocalDate ano){
+    private String buscarModelo(String marcaEncontrada, String modeloEncontrado, LocalDate ano){
         String anoCompletoConvertido = String.valueOf(ano.getYear()) + "-" + String.valueOf(ano.getDayOfMonth());
         List<ModeloEspecificoVeiculoFipe> modeloEspecifico = veiculoFipeService.buscaModelos(marcaEncontrada, modeloEncontrado);
         for(ModeloEspecificoVeiculoFipe modeloEspecificoVeiculoFipe: modeloEspecifico){
@@ -95,11 +97,11 @@ public class VeiculoServiceImpl implements VeiculoService {
         return null;
     }
 
-    private BigDecimal buscarAno(String marcaEncontrada, String modeloEncontrado, String ano){
+    private String buscarAno(String marcaEncontrada, String modeloEncontrado, String ano){
         AnoEspecificoVeiculoFipe anoEspecificoVeiculoFipe = veiculoFipeService.buscaVeiculoPeloAno(marcaEncontrada, modeloEncontrado, ano);
         Integer tamanho = anoEspecificoVeiculoFipe.getPreco().length();
         String anoConvertido = anoEspecificoVeiculoFipe.getPreco().substring(3, tamanho);
-        return new BigDecimal(anoConvertido.replace(",", ""));
+        return anoConvertido.replace(",", "");
     }
 
 }
