@@ -50,8 +50,8 @@ public class VeiculoController {
             .collect(Collectors.toList());
     }
 
-    @GetMapping("/veiculos/{marca}")
-    public ResponseEntity<List<MarcaEspecificaVeiculoFipe>> getMarca( @PathVariable("marca") String marca ) {
+    @GetMapping("/veiculos/{idMarca}")
+    public ResponseEntity<List<MarcaEspecificaVeiculoFipe>> getMarca( @PathVariable("idMarca") String marca ) {
         List<MarcaEspecificaVeiculoFipe> marcasEncontradas = veiculoFipeService.buscaMarcas(marca)
             .stream()
             .map(marcaEncontrada -> {
@@ -72,9 +72,9 @@ public class VeiculoController {
         return ResponseEntity.accepted().body(marcasEncontradas);
     }
 
-    @GetMapping("/veiculos/{marca}/{modelo}")
+    @GetMapping("/veiculos/{idMarca}/{idModelo}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<List<ModeloEspecificoVeiculoFipe>> getModelo( @PathVariable("marca") String marca, @PathVariable("modelo") String modelo ) {
+    public ResponseEntity<List<ModeloEspecificoVeiculoFipe>> getModelo( @PathVariable("idMarca") String marca, @PathVariable("idModelo") String modelo ) {
         List<ModeloEspecificoVeiculoFipe> modelosEncontrados = veiculoFipeService.buscaModelos( marca, modelo )
                 .stream()
                 .map(modeloEncontrado -> {
@@ -96,9 +96,9 @@ public class VeiculoController {
         return ResponseEntity.accepted().body(modelosEncontrados);
     }
 
-    @GetMapping("/veiculos/{marca}/{modelo}/{ano}")
-    public ResponseEntity<AnoEspecificoVeiculoFipe> getVeiculo(@PathVariable("marca") String marca, @PathVariable("modelo") String modelo,
-                                                               @PathVariable("ano") String ano ) {
+    @GetMapping("/veiculos/{idMarca}/{idModelo}/{idAno}")
+    public ResponseEntity<AnoEspecificoVeiculoFipe> getVeiculo(@PathVariable("idMarca") String marca, @PathVariable("idModelo") String modelo,
+                                                               @PathVariable("idAno") String ano ) {
         AnoEspecificoVeiculoFipe anoVeiculoEncontrado = veiculoFipeService.buscaVeiculoPeloAno( marca, modelo, ano );
 
         if(anoVeiculoEncontrado == null)
