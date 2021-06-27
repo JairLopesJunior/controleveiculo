@@ -11,6 +11,7 @@ buscarUsuarioPorId: Onde conseguimos buscar um usuario ja cadastrado na nossa ba
 salvar: Onde conseguimos salvar um usuário na base de dados.
 
 
+
 <b>A Classe VeiculoController temos cinco EndPoints que são:</b>
  
 getVeiculo: Onde conseguimos buscar um veiculo junto a API da FIPE, utilizando spring-cloud-feign.
