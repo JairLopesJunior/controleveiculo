@@ -32,7 +32,6 @@ public class UsuarioServiceImpl implements UsuarioService {
         Usuario usuarioConvertido = converterDtoParaEntity(usuarioDTO);
         Usuario usuarioSalvo = usuarioRepository.save(usuarioConvertido);
         UsuarioResponseDTO usuarioDesconvertido = converterEntityParaDto(usuarioSalvo);
-        Rodizio rodizio = new Rodizio();
         return usuarioDesconvertido;
     }
 
