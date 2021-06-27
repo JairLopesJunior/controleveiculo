@@ -4,13 +4,14 @@ Link para Testar: https://controle-veiculo-api.herokuapp.com/swagger-ui.html
 
 ![image](https://user-images.githubusercontent.com/47534815/123556491-ed6bda00-d761-11eb-90cb-c075b7c10965.png)
 
-A Classe UsuarioController tem dois EndPoints que são:
+<b>A Classe UsuarioController tem dois EndPoints que são:</b>
 
 buscarUsuarioPorId: Onde conseguimos buscar um usuario ja cadastrado na nossa base de dados com todos os seus veiculos.
 
 salvar: Onde conseguimos salvar um usuário na base de dados.
 
-A Classe VeiculoController temos cinco EndPoints que são:
+
+<b>A Classe VeiculoController temos cinco EndPoints que são:</b>
  
 getVeiculo: Onde conseguimos buscar um veiculo junto a API da FIPE, utilizando spring-cloud-feign.
 
