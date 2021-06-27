@@ -8,9 +8,7 @@ Link para Testar: https://controle-veiculo-api.herokuapp.com/swagger-ui.html
 
 buscarUsuarioPorId: Onde conseguimos buscar um usuario ja cadastrado na nossa base de dados com todos os seus veiculos.
 
-salvar: Onde conseguimos salvar um usuário na base de dados.
-
-
+salvar: Onde conseguimos salvar um usuário na base de dados.</br></br>
 
 <b>A Classe VeiculoController temos cinco EndPoints que são:</b>
  
