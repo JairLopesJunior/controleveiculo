@@ -17,6 +17,8 @@ getVeiculo: Onde conseguimos buscar um veiculo junto a API da FIPE, utilizando s
 save: Onde conseguimos cadastrar um novo veiculo, precisamos passar corretamente uma marca, um modelo e um ano todos existentes na tabela FIPE, assim o veiculo vai ser salvo na nossa base de dados e automaticamente vai salvar o valor correspondente.
 
 getMarca: Caso não saiba a marca consulte primeiro o EndPoint getVeiculo depois copie e cole o id da sua marca neste EndPoint para obter todos os tipos de veiculos desta marca.
+![marca](https://user-images.githubusercontent.com/47534815/123643986-57848d80-d7fb-11eb-8a6f-6c5a70d1c2db.png)
+
 
 getModelo: Neste EndPoint você precisa informar alem do id da marca e o id do modelo que vai obter no EndPoint getMarca.
 
