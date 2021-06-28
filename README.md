@@ -12,15 +12,15 @@ salvar: Onde conseguimos salvar um usuário na base de dados.</br></br>
 
 <b>Na Classe VeiculoController temos cinco EndPoints que são:</b>
  
-getVeiculo: Onde conseguimos buscar um veiculo junto a API da FIPE, utilizando spring-cloud-feign.
+<b>getVeiculo:</b> Onde conseguimos buscar um veiculo junto a API da FIPE, utilizando spring-cloud-feign.
 
-save: Onde conseguimos cadastrar um novo veiculo, precisamos passar corretamente uma marca, um modelo e um ano todos existentes na tabela FIPE, assim o veiculo vai ser salvo na nossa base de dados e automaticamente vai salvar o valor correspondente.
+<b>save:</b> Onde conseguimos cadastrar um novo veiculo, precisamos passar corretamente uma marca, um modelo e um ano todos existentes na tabela FIPE, assim o veiculo vai ser salvo na nossa base de dados e automaticamente vai salvar o valor correspondente.
 
-getMarca: Caso não saiba a marca consulte primeiro o EndPoint getVeiculo depois copie e cole o id da sua marca neste EndPoint para obter todos os tipos de veiculos desta marca.
+<b>getMarca:</b> Caso não saiba a marca consulte primeiro o EndPoint getVeiculo depois copie e cole o id da sua marca neste EndPoint para obter todos os tipos de veiculos desta marca.
 
 ![marca](https://user-images.githubusercontent.com/47534815/123643986-57848d80-d7fb-11eb-8a6f-6c5a70d1c2db.png)
 
 
-getModelo: Neste EndPoint você precisa informar alem do id da marca e o id do modelo que vai obter no EndPoint getMarca.
+<b>getModelo:</b> Neste EndPoint você precisa informar alem do id da marca e o id do modelo que vai obter no EndPoint getMarca.
 
-getVeiculo: Neste EndPoint você precisa informar o id da marca, modelo e ano que vai obter através do EndPoint getModelo.
+<b>getVeiculo:</b> Neste EndPoint você precisa informar o id da marca, modelo e ano que vai obter através do EndPoint getModelo.
