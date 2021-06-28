@@ -20,4 +20,4 @@ getMarca: Caso não saiba a marca consulte primeiro o EndPoint getVeiculo depois
 
 getModelo: Neste EndPoint você precisa informar alem do id da marca e o id do modelo que vai obter no EndPoint getMarca.
 
-getVeiculo: Neste EndPoint você precisa informar o id da marca, modelo e ano que vai obter através do EEndPoint getModelo.
+getVeiculo: Neste EndPoint você precisa informar o id da marca, modelo e ano que vai obter através do EndPoint getModelo.
