@@ -18,9 +18,11 @@ salvar: Onde conseguimos salvar um usuário na base de dados.</br></br>
 
 <b>getMarca:</b> Caso não saiba a marca consulte primeiro o EndPoint getVeiculo depois copie e cole o id da sua marca neste EndPoint para obter todos os tipos de veiculos desta marca.
 
-![marca](https://user-images.githubusercontent.com/47534815/123643986-57848d80-d7fb-11eb-8a6f-6c5a70d1c2db.png)
+![marca](https://user-images.githubusercontent.com/47534815/123643986-57848d80-d7fb-11eb-8a6f-6c5a70d1c2db.png)</br></br>
 
 
 <b>getModelo:</b> Neste EndPoint você precisa informar alem do id da marca e o id do modelo que vai obter no EndPoint getMarca.
+![modelo](https://user-images.githubusercontent.com/47534815/123644478-cc57c780-d7fb-11eb-933a-e1c63bda07f4.png)
+
 
 <b>getVeiculo:</b> Neste EndPoint você precisa informar o id da marca, modelo e ano que vai obter através do EndPoint getModelo.
