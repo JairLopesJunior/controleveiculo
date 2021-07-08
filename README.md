@@ -14,7 +14,7 @@ Link para Testar: https://controle-veiculo-api.herokuapp.com/swagger-ui.html
  
 <b>getVeiculo:</b> Onde conseguimos buscar um veiculo junto a API da FIPE, utilizando spring-cloud-feign.
 
-<b>save:</b> Onde conseguimos cadastrar um novo veiculo, precisamos passar corretamente uma marca, um modelo e um ano todos existentes na tabela FIPE, assim o veiculo vai ser salvo na nossa base de dados e automaticamente vai salvar o valor correspondente.
+<b>save:</b> Onde conseguimos cadastrar um novo veiculo, precisamos passar corretamente uma marca (Pegar a propriedade <b>name:</b> do EnPoint <b>getMarca</b>), um modelo (Pegar a propriedade <b>name:</b> do EnPoint <b>getModelo</b>) e um ano (Pegar a propriedade <b>Key:</b> do EnPoint <b>getAno</b>) todos existentes na tabela FIPE, assim o veiculo vai ser salvo na nossa base de dados e automaticamente vai salvar o valor correspondente. 
 
 <b>getMarca:</b> Caso não saiba a marca consulte primeiro o EndPoint getVeiculo depois copie e cole o id da sua marca neste EndPoint para obter todos os tipos de veiculos desta marca. Neste caso o <b>ID</b> da minha marca é <b>6</b>.
 
